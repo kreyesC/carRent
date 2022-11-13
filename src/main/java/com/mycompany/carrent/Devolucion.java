@@ -1,5 +1,6 @@
 package com.mycompany.carrent;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
@@ -17,20 +18,15 @@ public class Devolucion {
         setVehiculo(vehiculo);
         setArriendo(arriendo);
 
-        if (validarFechaDevolucion() && validarArriendo()) {
-            System.out.println("La devolucion fue exitosa");
-        } else {
-            System.out.println("La devolucion no se realizo");
-        }
+        ingresarDevolucion();
     }
 
     private boolean validarFechaDevolucion() {
-        return getArriendo().getFechaArriendo().compareTo(fechaDevolucion) < 0;
+        return arriendo.getFechaArriendo().compareTo(fechaDevolucion) < 0;
     }
 
     private boolean validarArriendo() {
         if (vehiculo.getPatente().equals(arriendo.getVehiculo().getPatente())) {
-            vehiculo.setCondition('D');
             return true;
         }
         return false;
@@ -78,4 +74,16 @@ public class Devolucion {
     public void setArriendo(Arriendo arriendo) {
         this.arriendo = arriendo;
     }
+
+    private boolean ingresarDevolucion() {
+        if (validarFechaDevolucion() && validarArriendo()) {
+            System.out.println("La devolucion fue exitosa");
+            vehiculo.setCondition('D');
+            return true;
+        } else {
+            System.out.println("La devolucion no se realizo");
+            return false;
+        }
+    }
+    
 }
